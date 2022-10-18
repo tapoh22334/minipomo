@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 
 import { invoke } from "@tauri-apps/api";
 import { listen } from '@tauri-apps/api/event'
-import { appWindow, PhysicalPosition, LogicalPosition} from '@tauri-apps/api/window';
+import { appWindow, PhysicalPosition, currentMonitor} from '@tauri-apps/api/window';
 
 import {AppContext} from './modules/AppContext';
 
@@ -38,8 +38,13 @@ function App() {
     React.useEffect(() => {
             const _unlisten = appWindow.onMoved(({ payload: position }) => {
                 console.log('Window moved', position);
-                localStorage.setItem("minipomo-WindowPosition", JSON.stringify(position));
+                if (position.x > -30000) {
+                    localStorage.setItem("minipomo-WindowPosition", JSON.stringify(position));
+                } else {
+                    console.log('Window is minimized');
+                }
             });
+
             appWindow.setPosition(new PhysicalPosition(winPositionState.x, winPositionState.y));
     }, []);
 
