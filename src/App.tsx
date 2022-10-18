@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 
 import { invoke } from "@tauri-apps/api";
 import { listen } from '@tauri-apps/api/event'
+import { appWindow, PhysicalPosition, LogicalPosition} from '@tauri-apps/api/window';
 
 import {AppContext} from './modules/AppContext';
 
@@ -26,12 +27,21 @@ function App() {
         { capture: true }
     );
 
-    const {min1, min2, min3, notificationType, voice} = React.useContext(AppContext);
+    const {windowPosition, min1, min2, min3, notificationType, voice} = React.useContext(AppContext);
+    const [winPositionState, setWinPositionState] = windowPosition;
     const [min1State, setMin1State] = min1;
     const [min2State, setMin2State] = min2;
     const [min3State, setMin3State] = min3;
     const [notificationTypeState, setNotificationTypeState] = notificationType;
     const [voiceState, setVoiceState] = voice;
+
+    React.useEffect(() => {
+            const _unlisten = appWindow.onMoved(({ payload: position }) => {
+                console.log('Window moved', position);
+                localStorage.setItem("minipomo-WindowPosition", JSON.stringify(position));
+            });
+            appWindow.setPosition(new PhysicalPosition(winPositionState.x, winPositionState.y));
+    }, []);
 
     React.useEffect(() => {
         const unlisten = listen('currentTime', (event) => {

@@ -121,7 +121,6 @@ fn main() {
 
             Ok(())
         });
-    //.plugin(tauri_plugin_window_state::Builder::default().build())
     let app = app.manage(sound_coordinator_tx);
     let app = app.manage(ticker_control_tx);
     let app = app.invoke_handler(
