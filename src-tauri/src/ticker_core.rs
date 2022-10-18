@@ -51,8 +51,10 @@ pub fn start(sound_control: mpsc::SyncSender<SoundControl>, identifier: String)
                         }
 
                         TickerControl::Stop => {
-                            spend = spend + start_time.unwrap().elapsed();
-                            start_time = None;
+                            if ! start_time.is_none() {
+                                spend = spend + start_time.unwrap().elapsed();
+                                start_time = None;
+                            }
                             println!("ticker_core: recv Stop");
                         }
 

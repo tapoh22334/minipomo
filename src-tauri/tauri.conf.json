@@ -54,8 +54,8 @@
     },
     "windows": [
       {
-        "fullscreen": false,
         "title": "minipomo",
+        "fullscreen": false,
         "resizable": false,
         "transparent": true,
         "decorations": false,

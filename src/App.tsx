@@ -66,6 +66,10 @@ function App() {
         const unlisten = listen('min1State', (event) => {
             console.log(event.payload);
             setMin1State(event.payload as number);
+
+            invoke("cmd_set_stop", {});
+            invoke("cmd_set_reset", {});
+            setStartState('');
         });
     }, []);
 
@@ -73,6 +77,10 @@ function App() {
         const unlisten = listen('min2State', (event) => {
             console.log(event.payload);
             setMin2State(event.payload as number);
+
+            invoke("cmd_set_stop", {});
+            invoke("cmd_set_reset", {});
+            setStartState('');
         });
     }, []);
 
@@ -80,6 +88,10 @@ function App() {
         const unlisten = listen('min3State', (event) => {
             console.log(event.payload);
             setMin3State(event.payload as number);
+
+            invoke("cmd_set_stop", {});
+            invoke("cmd_set_reset", {});
+            setStartState('');
         });
     }, []);
 
