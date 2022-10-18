@@ -20,7 +20,7 @@ export const CustomTitleBar = () => {
         const webview = new WebviewWindow('AppSetting', {
             title: 'minipomo settings',
             url: '/setting',
-            height: 320,
+            height: 360,
             width: 480,
             resizable: false,
         })

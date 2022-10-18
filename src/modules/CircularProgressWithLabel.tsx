@@ -6,19 +6,22 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 export function CircularProgressWithLabel(
-  props: CircularProgressProps & { min: number, sec: number },
+  props: CircularProgressProps & { sec: number },
 ) {
 
-  const toTimeString = (min: number, sec: number) => {
-      return (
-              min.toString()
-              + ':'
-              + ("00" + sec.toString()).slice(-2)
-             );
+  const formatDuration = (sec: number) => {
+      const minute = Math.floor(sec / 60);
+      const secondLeft = sec - minute * 60;
+      return `${minute}:${secondLeft < 10 ? `0${secondLeft}` : secondLeft}`;
   }
 
   return (
-    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+    <Box sx={{
+        position: 'relative',
+        bgcolor: 'rgba(255,255,255,0.6)',
+        borderRadius: 6,
+        display: 'inline-flex'
+        }}>
       <CircularProgress variant="determinate" {...props} />
       <Box
         sx={{
@@ -35,11 +38,7 @@ export function CircularProgressWithLabel(
         <Typography
           variant="body2"
           component="div"
-          sx={{
-            bgcolor: 'rgba(255,255,255,0.6)',
-            borderRadius: 4,
-          }}
-        >{toTimeString(props.min, props.sec)}</Typography>
+        >{formatDuration(props.sec)}</Typography>
       </Box>
     </Box>
   );

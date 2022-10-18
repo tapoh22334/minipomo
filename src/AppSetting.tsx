@@ -11,6 +11,15 @@ import FormLabel from '@mui/material/FormLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Checkbox from '@mui/material/Checkbox';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
+import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded';
+import IconButton from '@mui/material/IconButton';
+
+import { invoke } from '@tauri-apps/api'
+import { emit } from '@tauri-apps/api/event'
 
 import {AppContext} from './modules/AppContext';
 
@@ -27,35 +36,54 @@ const AppSetting = (
         { capture: true }
     );
 
-    const {min1, min2, min3, notificationType} = React.useContext(AppContext);
+    const {min1, min2, min3, notificationType, voice} = React.useContext(AppContext);
     const [min1State, setMin1State] = min1;
     const [min2State, setMin2State] = min2;
     const [min3State, setMin3State] = min3;
     const [notificationTypeState, setNotificationTypeState] = notificationType;
+    const [voiceState, setVoiceState] = voice;
 
     const onMin1Change = (event: Event, value: number | number[]) => {
         console.log(value);
         setMin1State(value as number);
+        emit('min1State', value as number);
         localStorage.setItem("minipomo-Min1", JSON.stringify(value));
     };
 
     const onMin2Change = (event: Event, value: number | number[]) => {
         console.log(value);
         setMin2State(value as number);
+        emit('min2State', value as number);
         localStorage.setItem("minipomo-Min2", JSON.stringify(value));
     };
 
     const onMin3Change = (event: Event, value: number | number[]) => {
         console.log(value);
         setMin3State(value as number);
+        emit('min3State', value as number);
         localStorage.setItem("minipomo-Min3", JSON.stringify(value));
     };
 
     const onNotificationTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = (event.target as HTMLInputElement).value;
         console.log(value);
+
         setNotificationTypeState(value);
+        invoke("cmd_set_notification", {notification: value, index: voiceState});
         localStorage.setItem("minipomo-NotificationType", JSON.stringify(value));
+    };
+
+    const onVoiceChange = (event: SelectChangeEvent) => {
+        const value = event.target.value as string
+        console.log(value);
+
+        setVoiceState(value);
+        invoke("cmd_set_notification", {notification: notificationTypeState, index: value});
+        localStorage.setItem("minipomo-Voice", JSON.stringify(value));
+    };
+
+    const onPlayClick = () => {
+        invoke("cmd_play_voice", {notification: notificationTypeState, index: voiceState});
     };
 
     return (
@@ -68,7 +96,8 @@ const AppSetting = (
                     value={min1State}
                     onChange={onMin1Change}
                     valueLabelDisplay="auto"
-                    max={60} />
+                    min={1}
+                    max={90} />
 
                 <Typography gutterBottom>Short Break</Typography>
                 <Slider
@@ -77,7 +106,8 @@ const AppSetting = (
                     value={min2State}
                     onChange={onMin2Change}
                     valueLabelDisplay="auto"
-                    max={60} />
+                    min={1}
+                    max={90} />
 
                 <Typography gutterBottom>Long Break</Typography>
                 <Slider
@@ -86,7 +116,8 @@ const AppSetting = (
                     value={min3State}
                     onChange={onMin3Change}
                     valueLabelDisplay="auto"
-                    max={60}
+                    min={1}
+                    max={90}
                     />
             </Box>
 
@@ -101,9 +132,30 @@ const AppSetting = (
             >
               <FormControlLabel value="voice" control={<Radio />} label="音+声" />
               <FormControlLabel value="sound" control={<Radio />} label="音" />
-              <FormControlLabel value="toast" control={<Radio />} label="トースト" />
+              {/*<FormControlLabel value="toast" control={<Radio />} label="トースト" />*/}
             </RadioGroup>
             </FormControl>
+
+            <Stack direction="row" spacing={2}>
+                <FormControl size="small" disabled={notificationTypeState !== "voice"}>
+                  <Select
+                    labelId="voicelabel"
+                    id="voice-select"
+                    value={voiceState}
+                    onChange={onVoiceChange}
+                  >
+                    <MenuItem value={0}>COEIROINK:おふとんP</MenuItem>
+                    <MenuItem value={1}>COEIROINK:KANA</MenuItem>
+                    <MenuItem value={2}>COEIROINK:MANA</MenuItem>
+                    <MenuItem value={3}>COEIROINK:つくよみちゃん</MenuItem>
+                    <MenuItem value={4}>VOICEVOX:四国めたん</MenuItem>
+                    <MenuItem value={5}>VOICEVOX:ずんだもん</MenuItem>
+                  </Select>
+                </FormControl>
+                <IconButton onClick={onPlayClick} sx={{ border: 1 }} aria-label="play">
+                    <PlayArrowRounded />
+                </IconButton>
+            </Stack>
         </Box>
     );
 };

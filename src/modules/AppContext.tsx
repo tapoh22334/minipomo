@@ -10,6 +10,7 @@ type AppContextType = {
     min2: [number, React.Dispatch<number>],
     min3: [number, React.Dispatch<number>],
     notificationType: [string, React.Dispatch<string>],
+    voice: [string, React.Dispatch<string>],
 }
 
 export const AppContext = createContext({} as AppContextType);
@@ -43,12 +44,20 @@ export const AppContextProvider: React.FC<Props> = (props) => {
         return initNotificationType === null ? 'voice' : initNotificationType;
     });
 
+    const [voice, setVoice] = React.useState(() => {
+        const json = localStorage.getItem("minipomo-Voice");
+        const initVoice = json === null ? null : JSON.parse(json);
+
+        return initVoice === null ? 0: initVoice;
+    });
+
     return(
         <AppContext.Provider value={{
             min1: [min1, setMin1],
             min2: [min2, setMin2],
             min3: [min3, setMin3],
-            notificationType: [notificationType, setNotificationType]
+            notificationType: [notificationType, setNotificationType],
+            voice: [voice, setVoice]
             }}>
             {props.children}
         </AppContext.Provider>

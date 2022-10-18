@@ -28,7 +28,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "iwase22334.minipomo",
+      "identifier": "jp.iwase22334.minipomo",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
