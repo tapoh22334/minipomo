@@ -152,6 +152,7 @@ function App() {
         <ToggleButtonGroup
             orientation="vertical"
             value={startState}
+            color="primary"
             exclusive
             onChange={handleStartChange}
             size="small"
