@@ -124,17 +124,34 @@ function App() {
             return 0;
         }
         if (startst === 'focus') {
-            return secst * 100.0 / (min1State * 60);
+            return 100 + secst * 100.0 / (min1State * 60);
         }
         else if (startst === 'short-break') {
-            return secst * 100.0 / (min2State * 60);
+            return 100 + secst * 100.0 / (min2State * 60);
         }
         else if (startst === 'long-break') {
-            return secst * 100.0 / (min3State * 60);
+            return 100 + secst * 100.0 / (min3State * 60);
         }
 
         return 0;
     }
+
+    const toInverseSecState = (secst: number, startst: string) => {
+        if (startst === 'stop') {
+            return 0;
+        }
+        if (startst === 'focus') {
+            return (min1State * 60) - secst;
+        }
+        else if (startst === 'short-break') {
+            return (min2State * 60) - secst;
+        }
+        else if (startst === 'long-break') {
+            return (min3State * 60) - secst;
+        }
+
+        return 0;
+   }
 
   return (
     <Widget data-tauri-drag-region className="App">
@@ -145,7 +162,7 @@ function App() {
             <CircularProgressWithLabel
                 value={toProgressPercentage(secState, startState)}
                 //value={65}
-                sec={secState} />
+                sec={toInverseSecState(secState, startState)} />
         </Box>
 
         <Box data-tauri-drag-region>
