@@ -1,0 +1,15 @@
+{
+  version: 1,
+  mediaFileName: 'Untitled_Artwork.mp4',
+  cutSegments: [
+    {
+      start: 1.6588542343750001,
+      end: 3.5644098677083336,
+      name: '',
+    },
+    {
+      start: 0,
+      name: '',
+    },
+  ],
+}
