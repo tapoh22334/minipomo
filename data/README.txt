@@ -50,7 +50,7 @@ Copyright (C) 2022 tapoh22334
  ■COEIROINK:おふとんP
  ■おふとんPの作業部屋: http://mohumohuton.web.fc2.com
 
-■ VOICEBOX: https://voicevox.hiroshiba.jp/
+■ VOICEVOX: https://voicevox.hiroshiba.jp/
 
  ■VOICEVOX:ずんだもん
  ■VOICEVOX:四国めたん
