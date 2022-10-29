@@ -20,7 +20,7 @@ import IconButton from '@mui/material/IconButton';
 
 import { invoke } from '@tauri-apps/api'
 import { emit } from '@tauri-apps/api/event'
-import { appWindow, PhysicalPosition } from '@tauri-apps/api/window';
+import { appWindow } from '@tauri-apps/api/window';
 
 import {AppContext} from './modules/AppContext';
 
@@ -38,7 +38,6 @@ const AppSetting = (
     );
 
     const {windowPosition, min1, min2, min3, notificationType, voice} = React.useContext(AppContext);
-    const [winPositionState, setWinPositionState] = windowPosition;
     const [min1State, setMin1State] = min1;
     const [min2State, setMin2State] = min2;
     const [min3State, setMin3State] = min3;

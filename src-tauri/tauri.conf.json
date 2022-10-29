@@ -7,11 +7,15 @@
   },
   "package": {
     "productName": "minipomo",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "tauri": {
     "allowlist": {
       "all": true
+    },
+    "systemTray": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true
     },
     "bundle": {
       "active": true,
@@ -28,7 +32,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "jp.iwase22334.minipomo",
+      "identifier": "jp.tapoh.minipomo",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -60,7 +64,7 @@
         "transparent": true,
         "decorations": false,
         "alwaysOnTop": true,
-        "skipTaskbar": false
+        "skipTaskbar": true
       }
     ]
   }

@@ -15,6 +15,8 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+document.addEventListener('contextmenu', event => event.preventDefault());
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
