@@ -110,8 +110,9 @@ fn main() {
     );
 
     let about = r#"
- minipomo v0.2.0
- 
+        minipomo
+  version 1.0.0 by tapoh
+
    声
     COEIROINK:つくよみちゃん
     COEIROINK:MANA
@@ -172,13 +173,12 @@ fn main() {
                         tauri::api::dialog::message(Some(&window), "minipomo", about);
                     }
                     "Licenses" => {
-                        is_minimized(&app.get_window("main").unwrap());
-                    //    let local_window = tauri::WindowBuilder::new(
-                    //        app,
-                    //        "license",
-                    //        tauri::WindowUrl::App("/licenses/".into())
-                    //        ).build().ok().unwrap();
-                    //    local_window.set_title("Licenses").unwrap();
+                        let license_window = tauri::WindowBuilder::new(
+                            app,
+                            "license",
+                            tauri::WindowUrl::App("/licenses/".into())
+                            ).build().ok().unwrap();
+                        license_window.set_title("Licenses").unwrap();
                     }
                     _ => {}
                 }

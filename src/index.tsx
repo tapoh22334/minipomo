@@ -10,6 +10,7 @@ import reportWebVitals from './reportWebVitals';
 
 import {AppContextProvider} from './modules/AppContext';
 import {AppContext} from './modules/AppContext';
+import {Licenses} from './modules/LicensesView';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -24,6 +25,7 @@ root.render(
         <Routes>
             <Route path={`/`} element={<App/>} />
             <Route path={`/setting/`} element={<AppSetting />} />
+            <Route path={`/licenses/`} element={<Licenses />} />
         </Routes>
         </AppContextProvider>
     </BrowserRouter>
