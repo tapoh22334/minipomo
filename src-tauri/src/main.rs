@@ -110,8 +110,8 @@ fn main() {
     );
 
     let about = r#"
-        minipomo
-  version 1.0.0 by tapoh
+        ミニポモ
+  version 1.0.1 by tapoh
 
    声
     COEIROINK:つくよみちゃん
